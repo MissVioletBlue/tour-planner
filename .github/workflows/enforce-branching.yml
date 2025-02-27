@@ -1,0 +1,31 @@
+name: Enforce Branching
+
+on: 
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  enforce-branching:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch naming conventions
+        run: |
+          BASE="${{ github.event.pull_request.base.ref }}"
+          HEAD="${{ github.event.pull_request.head.ref }}"
+          echo "Base branch: $BASE"
+          echo "Head branch: $HEAD"
+          
+          if [ "$BASE" = "dev" ]; then
+            if [ "$HEAD" = "dev" ]; then
+              echo "Error: PR from 'dev' to 'dev' is not allowed. Please use a feature branch when targeting 'dev'."
+              exit 1
+            fi
+          elif [ "$BASE" = "main" ] || [ "$BASE" = "master" ]; then
+            if [ "$HEAD" != "dev" ]; then
+              echo "Error: Only the 'dev' branch can be merged into 'main' or 'master'."
+              exit 1
+            fi
+          else
+            echo "Error: PR base branch must be either 'dev', 'main', or 'master'."
+            exit 1
+          fi

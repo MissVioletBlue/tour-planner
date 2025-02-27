@@ -1,0 +1,31 @@
+name: Deny Direct Commits
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+      - master
+
+jobs:
+  check-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check commit for PR association
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "Checking commit $COMMIT_SHA for associated pull requests..."
+          # Use the GitHub API preview endpoint to fetch pull requests associated with this commit
+          PRS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                     -H "Accept: application/vnd.github.groot-preview+json" \
+                     https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/pulls)
+          echo "Response: $PRS"
+          if [ "$PRS" = "[]" ]; then
+            echo "Error: Direct commit detected on protected branch. Please submit changes via a pull request."
+            exit 1
+          else
+            echo "Commit is associated with a pull request. Allowed."
+          fi
