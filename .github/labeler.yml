@@ -6,7 +6,9 @@
   - changed-files:
       - any-glob-to-any-file: '**/*.cs'
 
-"Changes: No C#":
+"Changes: No C# or XAML":
   - changed-files:
-      # Apply this label only if **all** changed files are NOT C# files
-      - all-globs-to-all-files: '!**/*.cs'
+      - all-globs-to-all-files:
+          - "!**/*.cs"
+          - "!**/*.xaml*"
+
