@@ -1,8 +1,12 @@
 "Changes: UI":
-  - "**/*.xaml*"  # All .xaml files
-
-"Changes: No C#":
-  - "!**/*.cs"    # Matches anything that is NOT a .cs file
+  - changed-files:
+      - any-glob-to-any-file: '**/*.xaml*'
 
 "Changes: C#":
-  - "**/*.cs"     # All .cs files
+  - changed-files:
+      - any-glob-to-any-file: '**/*.cs'
+
+"Changes: No C#":
+  - changed-files:
+      # Apply this label only if **all** changed files are NOT C# files
+      - all-globs-to-all-files: '!**/*.cs'
