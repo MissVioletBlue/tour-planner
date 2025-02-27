@@ -1,11 +1,8 @@
 "Changes: UI":
-  globs:
-    - '**/*.xaml*'
+  - "**/*.xaml*"  # All .xaml files
 
 "Changes: No C#":
-  globs:
-    - '!**/*.cs'
+  - "!**/*.cs"    # Matches anything that is NOT a .cs file
 
 "Changes: C#":
-  globs:
-    - '**/*.cs'
+  - "**/*.cs"     # All .cs files
