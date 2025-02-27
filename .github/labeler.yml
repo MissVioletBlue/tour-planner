@@ -1,8 +1,11 @@
 "Changes: UI":
-  - '**/*.xaml*'
+  globs:
+    - '**/*.xaml*'
 
 "Changes: No C#":
-  - '!**/*.cs'
+  globs:
+    - '!**/*.cs'
 
 "Changes: C#":
-  - '**/*.cs'
+  globs:
+    - '**/*.cs'
