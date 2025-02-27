@@ -1,11 +1,8 @@
 "Changes: UI":
-- changed-files:
-  - any-glob-to-any-file: '**/*.xaml*'
+  - '**/*.xaml*'
 
 "Changes: No C#":
-- changed-files:
-  - all-globs-to-all-files: "!**/*.cs"
+  - '!**/*.cs'
 
 "Changes: C#":
-- changed-files:
-  - any-globs-to-any-files: "**/*.cs"
+  - '**/*.cs'
