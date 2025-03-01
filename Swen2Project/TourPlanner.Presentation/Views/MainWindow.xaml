@@ -199,7 +199,7 @@
                                         ToolTip="Add New Tour" Command="{Binding ShowAddTourCommand}"/>
                                 <Button Content="-" Style="{StaticResource ActionButtonStyle}" 
                                         Background="#F44336" 
-                                        ToolTip="Remove Selected Tour"/>
+                                        ToolTip="Remove Selected Tour" Command="{Binding ShowRemoveTourCommand}"/>
                                 <Button Content="⋮" Style="{StaticResource ActionButtonStyle}" 
                                         ToolTip="More Options"/>
                             </StackPanel>
