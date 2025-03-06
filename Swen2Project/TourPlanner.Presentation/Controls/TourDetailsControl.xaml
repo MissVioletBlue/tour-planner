@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tourListControls="clr-namespace:Swen2Project.TourPlanner.Presentation.Controls.TourListControls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Border Style="{StaticResource CardStyle}" MinHeight="400">
@@ -43,84 +44,15 @@
                                     <ColumnDefinition Width="*" MinWidth="200"/>
                                 </Grid.ColumnDefinitions>
                                 
-                                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,5,0" 
-                                       Background="#F9F9F9" MinHeight="160">
-                                    <StackPanel>
-                                        <TextBlock Text="Tour Information" Style="{StaticResource SubHeaderTextStyle}"/>
-                                        <Grid Margin="0,5,0,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" MinWidth="100"/>
-                                                <ColumnDefinition Width="*" MinWidth="80"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="From:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Vienna" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                            
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="To:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="Salzburg" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                            
-                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Distance:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="2" Grid.Column="1" Text="295 km" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                            
-                                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Transport:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="3" Grid.Column="1" Text="Bicycle" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                            
-                                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Est. Time:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="4" Grid.Column="1" Text="15 hours" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                        </Grid>
-                                    </StackPanel>
-                                </Border>
+                                <tourListControls:TourInformationControl Grid.Column="0" />
                                 
-                                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="5,0,0,0" 
-                                       Background="#F9F9F9" MinHeight="160">
-                                    <StackPanel>
-                                        <TextBlock Text="Statistics" Style="{StaticResource SubHeaderTextStyle}"/>
-                                        <Grid Margin="0,5,0,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" MinWidth="130"/>
-                                                <ColumnDefinition Width="*" MinWidth="50"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Popularity:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="4.2/5" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                            
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Child-Friendliness:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="3.5/5" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                            
-                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Average Rating:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="2" Grid.Column="1" Text="4.7/5" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                            
-                                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Total Logs:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                                            <TextBlock Grid.Row="3" Grid.Column="1" Text="8" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                                        </Grid>
-                                    </StackPanel>
-                                </Border>
+                                <tourListControls:TourStatisticControl Grid.Column="1"></tourListControls:TourStatisticControl>
+                                
                             </Grid>
                             
                             <!-- Tour Description -->
                             <TextBlock Text="Description" Style="{StaticResource SubHeaderTextStyle}"/>
-                            <Border Background="#F9F9F9" Style="{StaticResource CardStyle}" MinHeight="100">
-                                <TextBlock TextWrapping="Wrap">
-                                    This scenic bicycle tour from Vienna to Salzburg follows along the Danube 
-                                    river for much of the route, offering beautiful views of the Austrian 
-                                    countryside. The path is mostly flat with some gentle hills as you 
-                                    approach Salzburg. Suitable for intermediate cyclists, with plenty of 
-                                    villages and towns along the way for rest stops.
-                                </TextBlock>
-                            </Border>
+                            <tourListControls:TourDescriptionControl></tourListControls:TourDescriptionControl>
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
