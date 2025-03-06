@@ -4,7 +4,7 @@ namespace Swen2Project.TourPlanner.ViewModels.Commands;
 
 public class RelayCommand : ICommand
 {
-    public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+    public RelayCommand(Action<object?> execute, Predicate<object?> canExecute)
     {
         ExecuteCommand = execute;
         CanExecuteCommand = canExecute;

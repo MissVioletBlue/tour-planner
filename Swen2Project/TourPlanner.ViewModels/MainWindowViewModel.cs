@@ -15,7 +15,7 @@ public class MainWindowViewModel
         addTourWindow.ShowDialog();
     }
     
-    private static bool CanShowAddTourWindow(object obj)
+    private static bool CanShowAddTourWindow(object? obj)
     {
         return true;
     }
@@ -26,7 +26,7 @@ public class MainWindowViewModel
         removeTourWindow.ShowDialog();
     }
     
-    private static bool CanShowRemoveTourWindow(object obj)
+    private static bool CanShowRemoveTourWindow(object? obj)
     {
         return true;
     }
