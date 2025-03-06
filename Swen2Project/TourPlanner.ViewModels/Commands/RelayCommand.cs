@@ -4,23 +4,23 @@ namespace Swen2Project.TourPlanner.ViewModels.Commands;
 
 public class RelayCommand : ICommand
 {
-    public RelayCommand(Action<object?> execute, Predicate<object?> canExecute)
-    {
-        ExecuteCommand = execute;
-        CanExecuteCommand = canExecute;
-    }
+    private readonly Action<object?> _executeCommand;
+    private readonly Func<object?, bool>? _canExecuteCommand;
     
-    private Action<object?> ExecuteCommand { get; set; }
-    private Predicate<object?> CanExecuteCommand { get; set; }
+    public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute)
+    {
+        _executeCommand = execute;
+        _canExecuteCommand = canExecute;
+    }
     
     public bool CanExecute(object? parameter)
     {
-        return CanExecuteCommand(parameter);
+        return _canExecuteCommand?.Invoke(parameter) ?? true;
     }
 
     public void Execute(object? parameter)
     {
-        ExecuteCommand(parameter);
+        _executeCommand(parameter);
     }
 
     public event EventHandler? CanExecuteChanged;

@@ -6,27 +6,33 @@ namespace Swen2Project.TourPlanner.ViewModels;
 
 public class MainWindowViewModel
 {
-    public ICommand ShowAddTourCommand { get; } = new RelayCommand(ShowAddTourWindow, CanShowAddTourWindow);
-    public ICommand ShowRemoveTourCommand { get; } = new RelayCommand(ShowRemoveTourWindow, CanShowRemoveTourWindow);
+    public MainWindowViewModel()
+    {
+        ShowAddTourCommand = new RelayCommand(ShowAddTourWindow, CanShowAddTourWindow);
+        ShowRemoveTourCommand = new RelayCommand(ShowRemoveTourWindow, CanShowRemoveTourWindow);
+    }
 
-    private static void ShowAddTourWindow(object? obj)
+    public ICommand ShowAddTourCommand { get; }
+    public ICommand ShowRemoveTourCommand { get; }
+
+    private void ShowAddTourWindow(object? obj)
     {
         var addTourWindow = new AddingTourWindow();
         addTourWindow.ShowDialog();
     }
     
-    private static bool CanShowAddTourWindow(object? obj)
+    private bool CanShowAddTourWindow(object? obj)
     {
         return true;
     }
     
-    private static void ShowRemoveTourWindow(object? obj)
+    private void ShowRemoveTourWindow(object? obj)
     {
         var removeTourWindow = new RemovingTourWindow();
         removeTourWindow.ShowDialog();
     }
     
-    private static bool CanShowRemoveTourWindow(object? obj)
+    private bool CanShowRemoveTourWindow(object? obj)
     {
         return true;
     }
