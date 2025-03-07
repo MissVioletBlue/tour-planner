@@ -1,8 +1,6 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
-namespace Swen2Project;
+namespace Swen2Project.TourPlanner.Presentation;
 
 /// <summary>
 /// Interaction logic for App.xaml
