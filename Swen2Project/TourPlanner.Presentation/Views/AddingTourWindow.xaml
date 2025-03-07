@@ -1,0 +1,235 @@
+﻿<Window x:Class="Swen2Project.TourPlanner.Presentation.Views.AddingTourWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Add New Tour" Height="600" Width="500"
+        ResizeMode="NoResize"
+        Background="#F5F5F5"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <!-- Consistent styling with MainWindow -->
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        
+        <Style x:Key="FormLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,8,0,4"/>
+            <Setter Property="Foreground" Value="#555555"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="MinWidth" Value="75"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3E8E41"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#9E9E9E"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#757575"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="FormTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,4,0,8"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="FormComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,4,0,8"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+        
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.2" Color="Gray"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <!-- Main Layout -->
+    <Border Style="{StaticResource CardStyle}" Margin="15">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Header -->
+            <TextBlock Text="Add New Tour" Grid.Row="0" 
+                     FontSize="20" FontWeight="SemiBold" 
+                     Margin="0,0,0,20"/>
+            
+            <!-- Form Fields -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Tour Name -->
+                    <TextBlock Text="Tour Name" Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                    
+                    <!-- From and To Locations -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                            <TextBlock Text="From" Style="{StaticResource FormLabelStyle}"/>
+                            <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                            <TextBlock Text="To" Style="{StaticResource FormLabelStyle}"/>
+                            <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <!-- Transport Type -->
+                    <TextBlock Text="Transport Type" Style="{StaticResource FormLabelStyle}"/>
+                    <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                        <ComboBoxItem Content="Bicycle" IsSelected="True"/>
+                        <ComboBoxItem Content="Car"/>
+                        <ComboBoxItem Content="Public Transit"/>
+                        <ComboBoxItem Content="Walking"/>
+                        <ComboBoxItem Content="Hiking"/>
+                    </ComboBox>
+                    
+                    <!-- Tour Distance -->
+                    <TextBlock Text="Distance (km)" Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                    
+                    <!-- Estimated Time -->
+                    <TextBlock Text="Estimated Time (hours)" Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                    
+                    <!-- Child Friendliness Rating -->
+                    <TextBlock Text="Child-Friendliness (1-5)" Style="{StaticResource FormLabelStyle}"/>
+                    <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                        <ComboBoxItem Content="1 - Not suitable for children"/>
+                        <ComboBoxItem Content="2 - Minimal child-friendliness"/>
+                        <ComboBoxItem Content="3 - Moderate child-friendliness" IsSelected="True"/>
+                        <ComboBoxItem Content="4 - Good for children"/>
+                        <ComboBoxItem Content="5 - Excellent for children"/>
+                    </ComboBox>
+                    
+                    <!-- Popularity Rating Initial -->
+                    <TextBlock Text="Initial Popularity (1-5)" Style="{StaticResource FormLabelStyle}"/>
+                    <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                        <ComboBoxItem Content="1 - Low popularity"/>
+                        <ComboBoxItem Content="2 - Somewhat popular"/>
+                        <ComboBoxItem Content="3 - Moderately popular" IsSelected="True"/>
+                        <ComboBoxItem Content="4 - Very popular"/>
+                        <ComboBoxItem Content="5 - Extremely popular"/>
+                    </ComboBox>
+                    
+                    <!-- Tour Description -->
+                    <TextBlock Text="Description" Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox Style="{StaticResource FormTextBoxStyle}" Height="100" TextWrapping="Wrap" 
+                             AcceptsReturn="True" VerticalContentAlignment="Top" Padding="8"/>
+                    
+                    <!-- Route Information -->
+                    <Expander Header="Route Information" Margin="0,10,0,10">
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock Text="Route Type" Style="{StaticResource FormLabelStyle}"/>
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                                <ComboBoxItem Content="Direct"/>
+                                <ComboBoxItem Content="Scenic"/>
+                                <ComboBoxItem Content="Fastest"/>
+                                <ComboBoxItem Content="Avoiding Highways"/>
+                            </ComboBox>
+                            
+                            <TextBlock Text="Surface Type" Style="{StaticResource FormLabelStyle}"/>
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                                <ComboBoxItem Content="Paved"/>
+                                <ComboBoxItem Content="Gravel"/>
+                                <ComboBoxItem Content="Mixed"/>
+                                <ComboBoxItem Content="Off-road"/>
+                            </ComboBox>
+                            
+                            <TextBlock Text="Difficulty Level" Style="{StaticResource FormLabelStyle}"/>
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                                <ComboBoxItem Content="Easy"/>
+                                <ComboBoxItem Content="Moderate" IsSelected="True"/>
+                                <ComboBoxItem Content="Challenging"/>
+                                <ComboBoxItem Content="Difficult"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+            
+            <!-- Button Panel -->
+            <Grid Grid.Row="2" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Content="Cancel" Style="{StaticResource SecondaryButtonStyle}" 
+                        HorizontalAlignment="Left" MinWidth="100"/>
+                <Button Grid.Column="1" Content="Add Tour" 
+                        HorizontalAlignment="Right" MinWidth="100"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
