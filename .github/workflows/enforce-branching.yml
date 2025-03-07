@@ -1,31 +1,46 @@
-name: Enforce Branching
+name: Enforce Branching Strategy
 
-on: 
+on:
   pull_request:
     types: [opened, reopened, edited, synchronize]
+    branches:
+      - main
+      - master
 
 jobs:
   enforce-branching:
     runs-on: ubuntu-latest
     steps:
-      - name: Validate branch naming conventions
+      - name: Check source branch
+        if: github.event.pull_request.head.ref != 'dev'
         run: |
-          BASE="${{ github.event.pull_request.base.ref }}"
-          HEAD="${{ github.event.pull_request.head.ref }}"
-          echo "Base branch: $BASE"
-          echo "Head branch: $HEAD"
-          
-          if [ "$BASE" = "dev" ]; then
-            if [ "$HEAD" = "dev" ]; then
-              echo "Error: PR from 'dev' to 'dev' is not allowed. Please use a feature branch when targeting 'dev'."
-              exit 1
-            fi
-          elif [ "$BASE" = "main" ] || [ "$BASE" = "master" ]; then
-            if [ "$HEAD" != "dev" ]; then
-              echo "Error: Only the 'dev' branch can be merged into 'main' or 'master'."
-              exit 1
-            fi
-          else
-            echo "Error: PR base branch must be either 'dev', 'main', or 'master'."
-            exit 1
-          fi
+          echo "Error: PRs to main/master must come from dev branch only"
+          echo "This PR is from '${{ github.event.pull_request.head.ref }}' to '${{ github.event.pull_request.base.ref }}'"
+          exit 1
+
+      - name: Close PR if not from dev branch
+        if: github.event.pull_request.head.ref != 'dev' && failure()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const repo = context.repo;
+            
+            // Add comment explaining why PR is being closed
+            await github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: prNumber,
+              body: "⚠️ **This PR has been automatically closed** ⚠️\n\nAccording to our branching strategy, PRs can only be merged into `main`/`master` from the `dev` branch.\n\nPlease create a new PR that targets the `dev` branch instead, or change the base of this PR to `dev`."
+            });
+            
+            // Close the PR
+            await github.rest.pulls.update({
+              owner: repo.owner,
+              repo: repo.repo,
+              pull_number: prNumber,
+              state: 'closed'
+            });
+            
+            console.log(`PR #${prNumber} was automatically closed because it didn't originate from the dev branch.`);
