@@ -49,7 +49,6 @@ jobs:
             **/bin/${{ env.Configuration }}/**/*.exe
             **/bin/${{ env.Configuration }}/**/*.dll
             **/bin/${{ env.Configuration }}/**/*.config
-            # Add other files you want to include in your artifacts
 
   code-analysis:
     runs-on: windows-latest
