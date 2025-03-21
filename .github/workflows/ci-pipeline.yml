@@ -1,0 +1,83 @@
+﻿name: WPF CI Pipeline
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    env:
+      Solution_Name: Swen2Project.sln
+      Configuration: Release
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.1.1
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore NuGet packages
+        run: nuget restore $env:Solution_Name
+
+      - name: Build solution
+        run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:Platform="Any CPU"
+
+      - name: Run tests
+        run: dotnet test $env:Solution_Name --configuration $env:Configuration --no-build --verbosity normal
+
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: WPF-Application
+          path: |
+            **/bin/${{ env.Configuration }}/**/*.exe
+            **/bin/${{ env.Configuration }}/**/*.dll
+            **/bin/${{ env.Configuration }}/**/*.config
+            # Add other files you want to include in your artifacts
+
+  code-analysis:
+    runs-on: windows-latest
+    needs: build
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install dotnet-format tool
+        run: dotnet tool install -g dotnet-format
+
+      - name: Check code format
+        run: dotnet format --verify-no-changes --verbosity diagnostic
+
+      - name: Run code analysis
+        run: |
+          dotnet new tool-manifest --force
+          dotnet tool install --local JetBrains.ReSharper.GlobalTools
+          dotnet jb inspectcode $env:Solution_Name -o="inspectcode.xml"
+        continue-on-error: true
+        
+      - name: Upload code analysis results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-analysis-results
+          path: inspectcode.xml
