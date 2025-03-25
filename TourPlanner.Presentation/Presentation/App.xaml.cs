@@ -6,9 +6,9 @@ using TourPlanner.Models.Interfaces;
 using TourPlanner.Presentation.Presentation.Views;
 using TourPlanner.Presentation.ViewModels;
 
-namespace TourPlanner.Presentation;
+namespace TourPlanner.Presentation.Presentation;
 
-public partial class App : Application
+public partial class App
 {
     private ServiceProvider _serviceProvider;
 
@@ -23,14 +23,15 @@ public partial class App : Application
     {
         // Register repositories
         services.AddSingleton<ITourRepository, TourRepository>();
-        
+    
         // Register services
         services.AddSingleton<ITourService, TourService>();
-        
+    
         // Register view models
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<AddTourViewModel>();
-        
+        services.AddTransient<RemoveTourViewModel>();
+    
         // Register views
         services.AddTransient<MainWindow>();
     }
