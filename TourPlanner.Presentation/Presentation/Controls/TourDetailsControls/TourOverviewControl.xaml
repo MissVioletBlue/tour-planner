@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="TourPlanner.Presentation.Presentation.Controls.TourDetailsControls.TourOverviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tourListControls="clr-namespace:TourPlanner.Presentation.Presentation.Controls.TourListControls"
+             xmlns:tourDetailsControls="clr-namespace:TourPlanner.Presentation.Presentation.Controls.TourDetailsControls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="5">
+            <!-- Map Section -->
+            <tourDetailsControls:TourMapControl DataContext="{Binding}"/>
+            
+            <!-- Tour Details -->
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
+                </Grid.ColumnDefinitions>
+                
+                <tourListControls:TourInformationControl Grid.Column="0" DataContext="{Binding}"/>
+                
+                <tourListControls:TourStatisticControl Grid.Column="1" DataContext="{Binding}"/>
+            </Grid>
+            
+            <!-- Tour Description Section -->
+            <TextBlock Text="Description" Style="{StaticResource SubHeaderTextStyle}"/>
+            <tourListControls:TourDescriptionControl DataContext="{Binding}"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

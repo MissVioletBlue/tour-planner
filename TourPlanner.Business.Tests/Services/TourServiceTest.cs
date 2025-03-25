@@ -35,7 +35,7 @@ public class TourServiceTest
     [Description("Adding an incomplete tour should return a failure.")]
     public void AddTour_MissingRequiredProperty_ReturnsFailure()
     {
-        // Arrange: create a tour missing some required properties (RouteType, SurfaceType, DifficultyLevel)
+        // Arrange
         var tour = new Tour
         {
             Name = "Test",
@@ -54,7 +54,7 @@ public class TourServiceTest
     [Description("Adding a valid tour should return a success.")]
     public void AddTour_ValidTour_ReturnsSuccess()
     {
-        // Arrange: create a valid tour with all required properties
+        // Arrange
         var tour = new Tour
         {
             Name = "Test",
@@ -67,8 +67,7 @@ public class TourServiceTest
             DifficultyLevel = "Test",
             Distance = 5,
         };
-
-        // Simulate that after adding, the repository returns the tour in its GetAllTours method.
+        
         _repository.GetAllTours().Returns(new List<Tour> { tour });
 
         // Act
@@ -92,7 +91,7 @@ public class TourServiceTest
     [Description("Updating an incomplete tour should return a failure.")]
     public void UpdateTour_MissingRequiredProperty_ReturnsFailure()
     {
-        // Arrange: create a tour missing required properties
+        // Arrange
         var tour = new Tour
         {
             Name = "Test",
@@ -111,7 +110,7 @@ public class TourServiceTest
     [Description("Updating a valid tour should return a success.")]
     public void UpdateTour_ValidTour_ReturnsSuccess()
     {
-        // Arrange: create a valid tour
+        // Arrange
         var tour = new Tour
         {
             Name = "Test",
@@ -124,8 +123,7 @@ public class TourServiceTest
             DifficultyLevel = "Test",
             Distance = 5,
         };
-
-        // Ensure the repository returns the tour when refreshing tours.
+        
         _repository.GetAllTours().Returns(new List<Tour> { tour });
 
         // Act
@@ -143,7 +141,6 @@ public class TourServiceTest
     {
         // Arrange
         var tourId = Guid.NewGuid();
-        // Simulate that the repository returns an empty list after deletion.
         _repository.GetAllTours().Returns(new List<Tour>());
 
         // Act
@@ -186,7 +183,7 @@ public class TourServiceTest
     [Description("Constructor should refresh tours from repository.")]
     public void Constructor_RefreshesTours()
     {
-        // Arrange: create two tours and have the repository return them.
+        // Arrange
         var tour1 = new Tour
         {
             Name = "Test1",
@@ -213,7 +210,7 @@ public class TourServiceTest
         };
         _repository.GetAllTours().Returns(new List<Tour> { tour1, tour2 });
 
-        // Act: reinitialize the service to trigger the constructor logic.
+        // Act
         _service = new TourService(_repository);
 
         // Assert

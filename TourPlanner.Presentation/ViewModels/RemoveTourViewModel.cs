@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using TourPlanner.Models;
+using JetBrains.Annotations;
 using TourPlanner.Models.Interfaces;
 using TourPlanner.Models.Models;
 using TourPlanner.Presentation.ViewModels.Commands;
@@ -14,9 +14,13 @@ public class RemoveTourViewModel : INotifyPropertyChanged
     private readonly ITourService _tourService;
     private readonly Tour _tourToRemove;
 
+    [UsedImplicitly]
     public Tour TourToRemove => _tourToRemove;
 
+    [UsedImplicitly]
     public ICommand RemoveTourCommand { get; }
+    
+    [UsedImplicitly]
     public ICommand CancelCommand { get; }
 
     public RemoveTourViewModel(ITourService tourService, Tour tourToRemove)
@@ -32,7 +36,6 @@ public class RemoveTourViewModel : INotifyPropertyChanged
     {
         _tourService.DeleteTour(_tourToRemove.Id);
         
-        // Close the window
         if (parameter is Window window)
         {
             window.DialogResult = true;
@@ -42,7 +45,6 @@ public class RemoveTourViewModel : INotifyPropertyChanged
 
     private void ExecuteCancel(object? parameter)
     {
-        // Close the window
         if (parameter is Window window)
         {
             window.DialogResult = false;

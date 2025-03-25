@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using JetBrains.Annotations;
 using TourPlanner.Models.Interfaces;
 using TourPlanner.Models.Models;
 using TourPlanner.Presentation.ViewModels.Commands;
@@ -162,7 +163,10 @@ public class AddTourViewModel : INotifyPropertyChanged
         }
     }
 
+    [UsedImplicitly]
     public ICommand AddTourCommand { get; }
+    
+    [UsedImplicitly]
     public ICommand CancelCommand { get; }
 
     public AddTourViewModel(ITourService tourService)
@@ -195,7 +199,6 @@ public class AddTourViewModel : INotifyPropertyChanged
 
         _tourService.AddTour(tour);
         
-        // Close the window
         if (parameter is Window window)
         {
             window.DialogResult = true;
@@ -205,7 +208,6 @@ public class AddTourViewModel : INotifyPropertyChanged
 
     private void ExecuteCancel(object? parameter)
     {
-        // Close the window
         if (parameter is Window window)
         {
             window.DialogResult = false;

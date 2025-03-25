@@ -1,19 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
-using TourPlanner.Models;
 using TourPlanner.Models.Interfaces;
 using TourPlanner.Models.Models;
-using TourPlanner.Presentation.Presentation;
 using TourPlanner.Presentation.Presentation.Views;
 using TourPlanner.Presentation.ViewModels.Commands;
+using JetBrains.Annotations;
 
 namespace TourPlanner.Presentation.ViewModels;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
     private readonly ITourService _tourService;
+    private readonly ITourLogService _tourLogService;
     private Tour? _selectedTour;
 
     public ObservableCollection<Tour> Tours => _tourService.Tours;
@@ -26,20 +27,29 @@ public class MainWindowViewModel : INotifyPropertyChanged
             _selectedTour = value;
             OnPropertyChanged();
             (ShowRemoveTourCommand as RelayCommand)?.RaiseCanExecuteChanged();
+            (ShowAddTourLogCommand as RelayCommand)?.RaiseCanExecuteChanged();
         }
     }
-
+    
+    [UsedImplicitly]
     public ICommand ShowAddTourCommand { get; }
+    
+    [UsedImplicitly]
     public ICommand ShowRemoveTourCommand { get; }
+    
+    [UsedImplicitly]
+    public ICommand ShowAddTourLogCommand { get; }
+    
 
-    public MainWindowViewModel(ITourService tourService)
+    public MainWindowViewModel(ITourService tourService, ITourLogService tourLogService)
     {
         _tourService = tourService;
+        _tourLogService = tourLogService;
         
         ShowAddTourCommand = new RelayCommand(ShowAddTourWindow);
         ShowRemoveTourCommand = new RelayCommand(ShowRemoveTourWindow, CanShowRemoveTourWindow);
+        ShowAddTourLogCommand = new RelayCommand(ShowAddTourLogWindow, CanShowAddTourLogWindow);
         
-        // Add some sample data for testing
         if (!Tours.Any())
         {
             AddSampleTours();
@@ -58,7 +68,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
             EstimatedTime = TimeSpan.FromHours(14),
             ChildFriendliness = 2,
             Popularity = 4,
-            Description = "A scenic route from Vienna to Salzburg along the Danube."
+            Description = "A scenic route from Vienna to Salzburg along the Danube.",
+            RouteType = "Scenic",
+            SurfaceType = "Paved",
+            DifficultyLevel = "Moderate"
         };
 
         var tour2 = new Tour
@@ -71,7 +84,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
             EstimatedTime = TimeSpan.FromHours(3.5),
             ChildFriendliness = 3,
             Popularity = 5,
-            Description = "A beautiful mountain hike with panoramic views of Innsbruck."
+            Description = "A beautiful mountain hike with panoramic views of Innsbruck.",
+            RouteType = "Mountain",
+            SurfaceType = "Rocky",
+            DifficultyLevel = "Hard"
         };
 
         _tourService.AddTour(tour1);
@@ -84,7 +100,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         var addTourWindow = new AddingTourWindow
         {
             DataContext = viewModel,
-            Owner = App.Current.MainWindow
+            Owner = Application.Current.MainWindow
         };
         
         addTourWindow.ShowDialog();
@@ -97,7 +113,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         var removeTourWindow = new RemovingTourWindow
         {
             DataContext = new RemoveTourViewModel(_tourService, SelectedTour),
-            Owner = App.Current.MainWindow
+            Owner = Application.Current.MainWindow
         };
         
         removeTourWindow.ShowDialog();
@@ -106,6 +122,27 @@ public class MainWindowViewModel : INotifyPropertyChanged
     private bool CanShowRemoveTourWindow(object? parameter)
     {
         return SelectedTour != null;
+    }
+    
+    private void ShowAddTourLogWindow(object? parameter)
+    {
+        if (SelectedTour == null) return;
+    
+        var viewModel = new AddTourLogViewModel(_tourLogService, SelectedTour);
+        var addTourLogWindow = new AddingTourLogWindow
+        {
+            DataContext = viewModel,
+            Owner = Application.Current.MainWindow
+        };
+    
+        addTourLogWindow.ShowDialog();
+    }
+
+    private bool CanShowAddTourLogWindow(object? parameter)
+    {
+        var canExecute = SelectedTour != null;
+        System.Diagnostics.Debug.WriteLine($"Can execute ShowAddTourLogCommand: {canExecute}, SelectedTour: {SelectedTour?.Name ?? "null"}");
+        return canExecute;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
