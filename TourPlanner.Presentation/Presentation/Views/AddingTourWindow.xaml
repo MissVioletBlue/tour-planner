@@ -124,7 +124,7 @@
                 <StackPanel>
                     <!-- Tour Name -->
                     <TextBlock Text="Tour Name" Style="{StaticResource FormLabelStyle}"/>
-                    <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                    <TextBox Style="{StaticResource FormTextBoxStyle}" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                     
                     <!-- From and To Locations -->
                     <Grid>
@@ -135,18 +135,18 @@
                         
                         <StackPanel Grid.Column="0" Margin="0,0,5,0">
                             <TextBlock Text="From" Style="{StaticResource FormLabelStyle}"/>
-                            <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                            <TextBox Style="{StaticResource FormTextBoxStyle}" Text="{Binding StartLocation, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         
                         <StackPanel Grid.Column="1" Margin="5,0,0,0">
                             <TextBlock Text="To" Style="{StaticResource FormLabelStyle}"/>
-                            <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                            <TextBox Style="{StaticResource FormTextBoxStyle}" Text="{Binding DestinationLocation, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </Grid>
                     
                     <!-- Transport Type -->
                     <TextBlock Text="Transport Type" Style="{StaticResource FormLabelStyle}"/>
-                    <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                    <ComboBox Style="{StaticResource FormComboBoxStyle}" SelectedValue="{Binding TransportType}">
                         <ComboBoxItem Content="Bicycle" IsSelected="True"/>
                         <ComboBoxItem Content="Car"/>
                         <ComboBoxItem Content="Public Transit"/>
@@ -156,42 +156,43 @@
                     
                     <!-- Tour Distance -->
                     <TextBlock Text="Distance (km)" Style="{StaticResource FormLabelStyle}"/>
-                    <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                    <TextBox Style="{StaticResource FormTextBoxStyle}" Text="{Binding Distance}"/>
                     
                     <!-- Estimated Time -->
                     <TextBlock Text="Estimated Time (hours)" Style="{StaticResource FormLabelStyle}"/>
-                    <TextBox Style="{StaticResource FormTextBoxStyle}"/>
+                    <TextBox Style="{StaticResource FormTextBoxStyle}" Text="{Binding EstimatedTimeString, UpdateSourceTrigger=PropertyChanged}"/>
                     
                     <!-- Child Friendliness Rating -->
                     <TextBlock Text="Child-Friendliness (1-5)" Style="{StaticResource FormLabelStyle}"/>
-                    <ComboBox Style="{StaticResource FormComboBoxStyle}">
-                        <ComboBoxItem Content="1 - Not suitable for children"/>
-                        <ComboBoxItem Content="2 - Minimal child-friendliness"/>
-                        <ComboBoxItem Content="3 - Moderate child-friendliness" IsSelected="True"/>
-                        <ComboBoxItem Content="4 - Good for children"/>
-                        <ComboBoxItem Content="5 - Excellent for children"/>
+                    <ComboBox Style="{StaticResource FormComboBoxStyle}" SelectedValue="{Binding ChildFriendliness}">
+                        <ComboBoxItem Content="1 - Not suitable for children" />
+                        <ComboBoxItem Content="2 - Minimal child-friendliness" />
+                        <ComboBoxItem Content="3 - Moderate child-friendliness" IsSelected="True" />
+                        <ComboBoxItem Content="4 - Good for children" />
+                        <ComboBoxItem Content="5 - Excellent for children" />
                     </ComboBox>
                     
                     <!-- Popularity Rating Initial -->
                     <TextBlock Text="Initial Popularity (1-5)" Style="{StaticResource FormLabelStyle}"/>
-                    <ComboBox Style="{StaticResource FormComboBoxStyle}">
-                        <ComboBoxItem Content="1 - Low popularity"/>
-                        <ComboBoxItem Content="2 - Somewhat popular"/>
-                        <ComboBoxItem Content="3 - Moderately popular" IsSelected="True"/>
-                        <ComboBoxItem Content="4 - Very popular"/>
-                        <ComboBoxItem Content="5 - Extremely popular"/>
+                    <ComboBox Style="{StaticResource FormComboBoxStyle}" SelectedValue="{Binding Popularity}">
+                        <ComboBoxItem Content="1 - Low popularity" />
+                        <ComboBoxItem Content="2 - Somewhat popular" />
+                        <ComboBoxItem Content="3 - Moderately popular" IsSelected="True" />
+                        <ComboBoxItem Content="4 - Very popular" />
+                        <ComboBoxItem Content="5 - Extremely popular" />
                     </ComboBox>
                     
                     <!-- Tour Description -->
                     <TextBlock Text="Description" Style="{StaticResource FormLabelStyle}"/>
                     <TextBox Style="{StaticResource FormTextBoxStyle}" Height="100" TextWrapping="Wrap" 
-                             AcceptsReturn="True" VerticalContentAlignment="Top" Padding="8"/>
+                             AcceptsReturn="True" VerticalContentAlignment="Top" Padding="8"
+                             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                     
                     <!-- Route Information -->
                     <Expander Header="Route Information" Margin="0,10,0,10">
                         <StackPanel Margin="0,10,0,0">
                             <TextBlock Text="Route Type" Style="{StaticResource FormLabelStyle}"/>
-                            <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}" SelectedValue="{Binding RouteType}">
                                 <ComboBoxItem Content="Direct"/>
                                 <ComboBoxItem Content="Scenic"/>
                                 <ComboBoxItem Content="Fastest"/>
@@ -199,7 +200,7 @@
                             </ComboBox>
                             
                             <TextBlock Text="Surface Type" Style="{StaticResource FormLabelStyle}"/>
-                            <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}" SelectedValue="{Binding SurfaceType}">
                                 <ComboBoxItem Content="Paved"/>
                                 <ComboBoxItem Content="Gravel"/>
                                 <ComboBoxItem Content="Mixed"/>
@@ -207,7 +208,7 @@
                             </ComboBox>
                             
                             <TextBlock Text="Difficulty Level" Style="{StaticResource FormLabelStyle}"/>
-                            <ComboBox Style="{StaticResource FormComboBoxStyle}">
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}" SelectedValue="{Binding DifficultyLevel}">
                                 <ComboBoxItem Content="Easy"/>
                                 <ComboBoxItem Content="Moderate" IsSelected="True"/>
                                 <ComboBoxItem Content="Challenging"/>
@@ -226,9 +227,14 @@
                 </Grid.ColumnDefinitions>
                 
                 <Button Grid.Column="0" Content="Cancel" Style="{StaticResource SecondaryButtonStyle}" 
-                        HorizontalAlignment="Left" MinWidth="100"/>
+                        HorizontalAlignment="Left" MinWidth="100"
+                        Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
                 <Button Grid.Column="1" Content="Add Tour" 
-                        HorizontalAlignment="Right" MinWidth="100"/>
+                        HorizontalAlignment="Right" MinWidth="100"
+                        Command="{Binding AddTourCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                        IsEnabled="{Binding IsValid}"/>
             </Grid>
         </Grid>
     </Border>

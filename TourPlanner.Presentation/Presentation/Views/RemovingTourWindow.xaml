@@ -122,50 +122,40 @@
                     Warning: This action cannot be undone!
                 </TextBlock>
                 <TextBlock Style="{StaticResource InfoTextStyle}">
-                    Removing this tour will permanently delete all associated tour data, 
-                    including logs, statistics, and ratings. Please confirm your selection below.
+                    Are you sure you want to remove the tour "<Run Text="{Binding TourToRemove.Name}" />"?
+                </TextBlock>
+                <TextBlock Style="{StaticResource InfoTextStyle}">
+                    This will permanently delete all associated tour data.
                 </TextBlock>
             </StackPanel>
             
-            <!-- Tour Selection -->
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Text="Select Tour to Remove:" Style="{StaticResource HeaderTextStyle}" 
-                         Grid.Row="0" Margin="0,0,0,5"/>
-                
-                <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}" Margin="0,0,0,5">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="Vienna to Salzburg" FontWeight="SemiBold" FontSize="14"/>
-                                    <TextBlock Text="Bicycle - 295 km" Foreground="#666666" FontSize="12"/>
-                                </StackPanel>
-                                
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <TextBlock Text="8 logs" VerticalAlignment="Center" 
-                                             Foreground="#666666" Margin="0,0,10,0"/>
-                                    <RadioButton VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+            <!-- Tour Info -->
+            <Border Grid.Row="2" Style="{StaticResource CardStyle}" Padding="10" Background="#FAFAFA">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     
-                    <!-- Example items for design-time preview -->
-                    <ListViewItem/>
-                    <ListViewItem/>
-                    <ListViewItem/>
-                </ListView>
-            </Grid>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" FontWeight="SemiBold" Margin="0,0,10,5"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TourToRemove.Name}" Margin="0,0,0,5"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="From:" FontWeight="SemiBold" Margin="0,0,10,5"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TourToRemove.StartLocation}" Margin="0,0,0,5"/>
+                    
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="To:" FontWeight="SemiBold" Margin="0,0,10,5"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding TourToRemove.DestinationLocation}" Margin="0,0,0,5"/>
+                    
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Transport:" FontWeight="SemiBold" Margin="0,0,10,5"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding TourToRemove.TransportType}" Margin="0,0,0,5"/>
+                </Grid>
+            </Border>
             
             <!-- Button Panel -->
             <Grid Grid.Row="3" Margin="0,10,0,0">
@@ -175,9 +165,13 @@
                 </Grid.ColumnDefinitions>
                 
                 <Button Grid.Column="0" Content="Cancel" Style="{StaticResource CancelButtonStyle}" 
-                        HorizontalAlignment="Left" MinWidth="100"/>
-                <Button Grid.Column="1" Content="Remove Selected Tour" Style="{StaticResource DangerButtonStyle}" 
-                        HorizontalAlignment="Right" MinWidth="140"/>
+                        HorizontalAlignment="Left" MinWidth="100"
+                        Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+                <Button Grid.Column="1" Content="Remove Tour" Style="{StaticResource DangerButtonStyle}" 
+                        HorizontalAlignment="Right" MinWidth="140"
+                        Command="{Binding RemoveTourCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
             </Grid>
         </Grid>
     </Border>
