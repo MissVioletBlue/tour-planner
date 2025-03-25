@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="46"/>
@@ -17,12 +17,13 @@
             <Grid>
                 <TextBlock Text="Tour Logs" Style="{StaticResource SubHeaderTextStyle}" 
                           Margin="0" VerticalAlignment="Center"/>
-                <Button Content="Add Log" HorizontalAlignment="Right"/>
+                <Button Content="Add Log" HorizontalAlignment="Right" Command="{Binding ShowAddTourLogCommand}"/>
             </Grid>
         </Border>
         
         <!-- Tour Logs List -->
-        <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}" BorderThickness="0" MinHeight="250">
+        <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}" BorderThickness="0" MinHeight="250"
+                  ItemsSource="{Binding SelectedTour.TourLogs}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="10" BorderBrush="#EEEEEE" BorderThickness="0,0,0,1" MinWidth="300">
@@ -33,26 +34,23 @@
                                 <ColumnDefinition Width="Auto" MinWidth="100"/>
                             </Grid.ColumnDefinitions>
                             
-                            <TextBlock Grid.Column="0" Text="2024-02-15" 
+                            <TextBlock Grid.Column="0" Text="{Binding DateTime, StringFormat='{}{0:yyyy-MM-dd}'}" 
                                      VerticalAlignment="Top" Width="80" TextWrapping="Wrap"/>
                             
                             <StackPanel Grid.Column="1" Margin="10,0">
-                                <TextBlock TextWrapping="Wrap">
-                                    Completed the eastern half of the tour. Weather was perfect with light breeze.
-                                    Roads were in good condition and traffic was light.
-                                </TextBlock>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Comment}"/>
                                 <StackPanel Orientation="Vertical" Margin="0,5,0,0">
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,2">
                                         <TextBlock Text="Difficulty:" FontWeight="SemiBold" Margin="0,0,5,0" TextWrapping="Wrap"/>
-                                        <TextBlock Text="3/5" Margin="0,0,10,0" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Difficulty, StringFormat='{}{0}/5'}" Margin="0,0,10,0" TextWrapping="Wrap"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,2">
                                         <TextBlock Text="Total Time:" FontWeight="SemiBold" Margin="0,0,5,0" TextWrapping="Wrap"/>
-                                        <TextBlock Text="7h 20m" Margin="0,0,10,0" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding TotalTime, StringFormat='{}{0:hh\\:mm}'}" Margin="0,0,10,0" TextWrapping="Wrap"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Distance:" FontWeight="SemiBold" Margin="0,0,5,0" TextWrapping="Wrap"/>
-                                        <TextBlock Text="150 km" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding TotalDistance, StringFormat='{}{0} km'}" TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
@@ -60,7 +58,7 @@
                             <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5" HorizontalAlignment="Center">
                                     <TextBlock Text="Rating:" Margin="0,0,5,0" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                                    <TextBlock Text="5/5" FontWeight="Bold" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Rating, StringFormat='{}{0}/5'}" FontWeight="Bold" VerticalAlignment="Center" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <Button Content="Edit" Padding="8,2" MinWidth="75" HorizontalAlignment="Center"/>
                             </StackPanel>
@@ -73,13 +71,6 @@
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
-            <!-- Example items for design-time preview -->
-            <ListViewItem>
-                <TextBlock Text="Log 1" />
-            </ListViewItem>
-            <ListViewItem>
-                <TextBlock Text="Log 2" />
-            </ListViewItem>
         </ListView>
     </Grid>
 </UserControl>
