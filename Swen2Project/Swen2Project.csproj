@@ -24,9 +24,4 @@
       </Page>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="TourPlanner.Business\Services\" />
-      <Folder Include="TourPlanner.DataAccess\Repositories\" />
-    </ItemGroup>
-
 </Project>
