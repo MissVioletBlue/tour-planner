@@ -122,7 +122,7 @@
                     Warning: This action cannot be undone!
                 </TextBlock>
                 <TextBlock Style="{StaticResource InfoTextStyle}">
-                    Are you sure you want to remove the tour "{Binding TourToRemove.Name}"?
+                    Are you sure you want to remove the tour "<Run Text="{Binding TourToRemove.Name}" />"?
                 </TextBlock>
                 <TextBlock Style="{StaticResource InfoTextStyle}">
                     This will permanently delete all associated tour data.
