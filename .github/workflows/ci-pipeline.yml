@@ -1,0 +1,97 @@
+﻿name: WPF CI Pipeline
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    env:
+      Solution_Name: Swen2Project.sln
+      Configuration: Release
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.1.1
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore NuGet packages
+        run: nuget restore $env:Solution_Name
+
+      - name: Build solution
+        run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:Platform="Any CPU"
+
+      - name: Run tests
+        run: dotnet test $env:Solution_Name --configuration $env:Configuration --no-build --verbosity normal
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: WPF-Application
+          path: |
+            **/bin/${{ env.Configuration }}/**/*.exe
+            **/bin/${{ env.Configuration }}/**/*.dll
+            **/bin/${{ env.Configuration }}/**/*.config
+
+  code-analysis:
+    runs-on: windows-latest
+    needs: build
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install dotnet-format tool
+        run: dotnet tool install -g dotnet-format
+
+      - name: Format code and report issues
+        id: format-check
+        run: |
+          # Run format in report-only mode
+          dotnet format --verbosity detailed | Out-File -FilePath format_report.txt -Encoding utf8
+          
+          # Display the report in the log
+          Get-Content format_report.txt
+          
+          # For now, we don't fail the build, but we highlight the issues
+          echo "::warning::Code formatting issues detected. See format_report.txt for details."
+        continue-on-error: true
+
+      - name: Upload format report
+        uses: actions/upload-artifact@v4
+        with:
+          name: format-report
+          path: format_report.txt
+
+      - name: Run code analysis
+        run: |
+          dotnet new tool-manifest --force
+          dotnet tool install --local JetBrains.ReSharper.GlobalTools
+          dotnet jb inspectcode $env:Solution_Name -o="inspectcode.xml"
+        continue-on-error: true
+
+      - name: Upload code analysis results
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-analysis-results
+          path: inspectcode.xml
