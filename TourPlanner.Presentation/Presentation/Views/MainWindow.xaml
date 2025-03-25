@@ -54,13 +54,13 @@
             </Grid.RowDefinitions>
             
             <!-- Search Bar -->
-            <controls:SearchBarControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></controls:SearchBarControl>
+            <controls:SearchBarControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
             
             <!-- Left Panel: Tours List -->
-            <controls:TourListControl Grid.Row="1" Grid.Column="0" />
-            
+            <controls:TourListControl Grid.Row="1" Grid.Column="0" DataContext="{Binding}" />
+
             <!-- Right Panel: Tour Details -->
-            <controls:TourDetailsControl Grid.Row="1" Grid.Column="1"></controls:TourDetailsControl>
+            <controls:TourDetailsControl Grid.Row="1" Grid.Column="1" DataContext="{Binding}" />
         </Grid>
     </DockPanel>
 </Window>

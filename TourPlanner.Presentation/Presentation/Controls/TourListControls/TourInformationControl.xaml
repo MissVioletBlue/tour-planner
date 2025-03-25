@@ -22,19 +22,19 @@
                 </Grid.RowDefinitions>
                 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="From:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="Vienna" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTour.StartLocation}" Margin="0,0,0,5" TextWrapping="Wrap"/>
                 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="To:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="Salzburg" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTour.DestinationLocation}" Margin="0,0,0,5" TextWrapping="Wrap"/>
                 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Distance:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="295 km" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.Distance, StringFormat='{}{0} km'}" Margin="0,0,0,5" TextWrapping="Wrap"/>
                 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Transport:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="Bicycle" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedTour.TransportType}" Margin="0,0,0,5" TextWrapping="Wrap"/>
                 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Est. Time:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" Text="15 hours" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SelectedTour.EstimatedTime, StringFormat='{}{0:hh\\:mm} hours'}" Margin="0,0,0,5" TextWrapping="Wrap"/>
             </Grid>
         </StackPanel>
     </Border>

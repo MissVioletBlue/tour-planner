@@ -21,16 +21,16 @@
                 </Grid.RowDefinitions>
                 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Popularity:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="4.2/5" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedTour.Popularity, StringFormat='{}{0}/5'}" Margin="0,0,0,5" TextWrapping="Wrap"/>
                 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Child-Friendliness:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="3.5/5" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedTour.ChildFriendliness, StringFormat='{}{0}/5'}" Margin="0,0,0,5" TextWrapping="Wrap"/>
                 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Average Rating:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="4.7/5" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Route Type:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.RouteType}" Margin="0,0,0,5" TextWrapping="Wrap"/>
                 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Total Logs:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="8" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Difficulty Level:" FontWeight="SemiBold" Margin="0,0,10,5" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedTour.DifficultyLevel}" Margin="0,0,0,5" TextWrapping="Wrap"/>
             </Grid>
         </StackPanel>
     </Border>
