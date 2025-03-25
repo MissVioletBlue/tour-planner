@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using TourPlanner.Models;
 using TourPlanner.Models.Interfaces;
 using TourPlanner.Models.Models;
@@ -29,7 +30,7 @@ public class TourService : ITourService
     
     public Tour? GetTourById(Guid id) => _tourRepository.GetTourById(id);
     
-    public bool AddTour(Tour tour)
+    public bool AddTour(Tour? tour)
     {
         if (!ValidateTour(tour))
             return false;
@@ -39,7 +40,7 @@ public class TourService : ITourService
         return true;
     }
     
-    public bool UpdateTour(Tour tour)
+    public bool UpdateTour(Tour? tour)
     {
         if (!ValidateTour(tour))
             return false;
@@ -56,19 +57,23 @@ public class TourService : ITourService
         return true;
     }
     
-    private bool ValidateTour(Tour tour)
+    private bool ValidateTour([NotNullWhen(true)] Tour? tour)
     {
-        // Validate required fields
-        if (string.IsNullOrWhiteSpace(tour.Name))
+        if (tour == null)
             return false;
-            
-        if (string.IsNullOrWhiteSpace(tour.StartLocation))
-            return false;
-            
-        if (string.IsNullOrWhiteSpace(tour.DestinationLocation))
-            return false;
-            
-        // Add more validation as needed
-        return true;
+        
+        var requiredProperties = new[]
+        {
+            tour.Name,
+            tour.Description,
+            tour.StartLocation,
+            tour.DestinationLocation,
+            tour.TransportType,
+            tour.RouteType,
+            tour.SurfaceType,
+            tour.DifficultyLevel,
+        };
+
+        return requiredProperties.All(prop => !string.IsNullOrWhiteSpace(prop));
     }
 }
