@@ -52,6 +52,8 @@ jobs:
   code-analysis:
     runs-on: windows-latest
     needs: build
+    env:
+      Solution_Name: Swen2Project.sln
     
     steps:
       - uses: actions/checkout@v4
