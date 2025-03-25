@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swen2Project", "Swen2Project\Swen2Project.csproj", "{A5FE3F8A-3FFF-489F-A7C4-53CA3A063538}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Presentation", "TourPlanner.Presentation\TourPlanner.Presentation.csproj", "{A5FE3F8A-3FFF-489F-A7C4-53CA3A063538}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
