@@ -1,10 +1,11 @@
-﻿using TourPlanner.Models.Models;
+﻿using System.Collections.ObjectModel;
+using TourPlanner.Models.Models;
 
 namespace TourPlanner.Models.Interfaces;
 
 public interface ITourService
 {
-    IEnumerable<Tour> GetAllTours();
+    ObservableCollection<Tour> Tours { get; }
     Tour? GetTourById(Guid id);
     bool AddTour(Tour tour);
     bool UpdateTour(Tour tour);

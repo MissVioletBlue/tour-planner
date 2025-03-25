@@ -7,7 +7,7 @@ public class Tour
     public required string Description {get; set;}
     public required string StartLocation {get; set;}
     public required string DestinationLocation {get; set;}
-    public required string Distance {get; set;}
+    public required double Distance {get; set;}
     public TimeSpan EstimatedTime {get; set;}
     public string TransportType { get; set; } = string.Empty;
     public int ChildFriendliness { get; set; } = 3; // 1-5 scale

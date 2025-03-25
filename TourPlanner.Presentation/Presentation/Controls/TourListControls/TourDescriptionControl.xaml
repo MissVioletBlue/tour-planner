@@ -6,12 +6,10 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Border Background="#F9F9F9" Style="{StaticResource CardStyle}" MinHeight="100">
-        <TextBlock TextWrapping="Wrap">
-            This scenic bicycle tour from Vienna to Salzburg follows along the Danube 
-            river for much of the route, offering beautiful views of the Austrian 
-            countryside. The path is mostly flat with some gentle hills as you 
-            approach Salzburg. Suitable for intermediate cyclists, with plenty of 
-            villages and towns along the way for rest stops.
-        </TextBlock>
+        <StackPanel>
+            <TextBlock Text="Description" Style="{StaticResource SubHeaderTextStyle}" Margin="0,0,0,5"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding SelectedTour.Description}">
+            </TextBlock>
+        </StackPanel>
     </Border>
 </UserControl>
