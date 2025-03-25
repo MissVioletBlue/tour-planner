@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Presentation", "TourPlanner.Presentation\TourPlanner.Presentation.csproj", "{A5FE3F8A-3FFF-489F-A7C4-53CA3A063538}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Business", "TourPlanner.Business\TourPlanner.Business.csproj", "{D6715F52-421E-4A3B-9078-ADB33EC85763}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{A5FE3F8A-3FFF-489F-A7C4-53CA3A063538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5FE3F8A-3FFF-489F-A7C4-53CA3A063538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5FE3F8A-3FFF-489F-A7C4-53CA3A063538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6715F52-421E-4A3B-9078-ADB33EC85763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6715F52-421E-4A3B-9078-ADB33EC85763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6715F52-421E-4A3B-9078-ADB33EC85763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6715F52-421E-4A3B-9078-ADB33EC85763}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
