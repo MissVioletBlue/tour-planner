@@ -45,6 +45,8 @@ public class TourRepository : ITourRepository
 
     public void DeleteTour(Guid id)
     {
-        throw new NotImplementedException();
+        Tour? tempTour = GetTourById(id);
+        if (tempTour != null)
+            _tourList.Remove(tempTour);
     }
 }
