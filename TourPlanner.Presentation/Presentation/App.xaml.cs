@@ -23,14 +23,17 @@ public partial class App
     {
         // Register repositories
         services.AddSingleton<ITourRepository, TourRepository>();
+        services.AddSingleton<ITourLogRepository, TourLogRepository>();
     
         // Register services
         services.AddSingleton<ITourService, TourService>();
+        services.AddSingleton<ITourLogService, TourLogService>();
     
         // Register view models
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<AddTourViewModel>();
         services.AddTransient<RemoveTourViewModel>();
+        services.AddTransient<AddTourLogViewModel>();
     
         // Register views
         services.AddTransient<MainWindow>();
